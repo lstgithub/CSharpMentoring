@@ -24,7 +24,8 @@ namespace FundamentalsStringModule
         }
     }
 
-    class StringHelper
+
+    class StringHelper  //классы нужно делать в отдельных файлах
     {
         public static void SymbolCounter(List<string> stringArray)
         {

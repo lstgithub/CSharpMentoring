@@ -12,11 +12,13 @@ namespace FundamentalsCalculator
             Console.WriteLine("Enter addition/subtraction/division/multiplication symbol");
             var operationType = Console.ReadLine();
             Console.WriteLine("Enter second number");
-            var b = Console.ReadLine();
+            var b = Console.ReadLine();            
             
-            var parsedA = Int16.Parse(a);
-            var parsedB = Int16.Parse(b);
+            var parsedA = Int16.Parse(a);// что будет если не сможет спарсить?
+            var parsedB = Int16.Parse(b);// что будет если не сможет спарсить?
 
+            // нужно обработать ситуацию если будте введен символ отличный от +,-,/,*
+            // хоршо бы использовать switch
             if (operationType == "+")
                 MathHandler.AdditionHelper(parsedA, parsedB);
             if (operationType == "-")
@@ -28,7 +30,8 @@ namespace FundamentalsCalculator
         }
     }
 
-    class MathHandler
+
+    class MathHandler  //классы нужно делать в отдельных файлах
     {
         public static void AdditionHelper(int a, int b)
         {

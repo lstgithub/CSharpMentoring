@@ -8,25 +8,33 @@ namespace FundamentalsArrayModule
     {
         static void Main(string[] args)
         {
+            // в C# принято отделять логические блоки кода пробелом и не липить
             var sourceArray = ArrayUtils.CreateArray(20);
+
             foreach (int i in sourceArray)
                 Console.WriteLine(i + " source array");
+
             int maxNegativeIndex = Array.IndexOf(sourceArray, sourceArray.Where(i => i < 0).Min());
             int minPositiveIndex = Array.IndexOf(sourceArray, sourceArray.Where(i => i > 0).Min());
             var swappedArray = ArrayUtils.SwapArray(sourceArray, maxNegativeIndex, minPositiveIndex);
+
             foreach (int i in swappedArray)
                 Console.WriteLine(i + " swapped array");
         }
     }
+   
 
-    class ArrayUtils
+    class ArrayUtils //классы нужно делать в отдельных файлах
     {
         public static int[] CreateArray(int count)
         {
+            //не жалей пробелов, так проще читать код
             Random random = new Random();
             int[] array = new int[count];
+
             for (int i = 0; i < count; ++i)
                 array[i] = random.Next(-10, 10);
+
             return array;
         }
 
