@@ -26,21 +26,15 @@ namespace OOPModule
             Console.WriteLine("Enabled device(s): " + string.Join(", ", new DeviceEnabler().ShowEnabledDevices(devicesToEnable)));
             Console.WriteLine("Total power consumption of enabled device(s) is " + new PowerCalculator().Calculator(devicesToEnable) + "W");
             Console.WriteLine("Devices, sorted by power consumption from highest to lowest: " + new SortDevicesByConsumption().Sorter(devicesToEnable));
+            Console.WriteLine("Enter power consumption to find its device:");
+            DeviceFinderByConsumption.Finder();
         }
     }
 
     class DeviceManager
     {
-        public Dictionary<string, int> DeviceAndItsPower = new Dictionary<string, int>
-        {
-            { "Kettle", 2000 },
-            { "Microwave", 1000 },
-            { "TV", 100 },
-            { "Lightbulb", 50 },
-            { "Radio", 35 }
-        };
-
         public List<int> DevicePower = new List<int>(new int[] { 2000, 1000, 100, 50, 35 });
+
         public enum DeviceList
         {
             Kettle, Microwave, TV, Lightbulb, Radio
@@ -69,8 +63,20 @@ namespace OOPModule
 
     class DeviceFinderByConsumption
     {
-        public void Finder(List<int> enabledDevices)
+        public static void Finder()
         {
+            var inputPower = int.Parse(Console.ReadLine());
+            var devicePowerList = new DeviceManager().DevicePower;
+
+            foreach (int i in devicePowerList)
+            {
+                if (inputPower.Equals(devicePowerList[i]))
+                {
+                    var deviceIndex = i;
+                    var device = (DeviceManager.DeviceList)deviceIndex;
+                    Console.WriteLine(device.ToString());
+                }
+            }
             
         }
     }
@@ -96,16 +102,17 @@ namespace OOPModule
         {
             foreach (int i in enabledDevices)
             {
-                Console.WriteLine(new DeviceManager().DeviceAndItsPower.ElementAt(i).Key);
+
             }
 
             Dictionary<string, int> sortedDevicesByPower = new Dictionary<string, int>();
 
             foreach (int i in enabledDevices)
             {
-                sortedDevicesByPower.Add(enabledDevices.ElementAt(i).Value);
+                
             }
-            
+
+            return null;
         }
     }
 }
