@@ -24,8 +24,9 @@ namespace OOPModule
             }
 
             Console.WriteLine("Enabled device(s): " + string.Join(", ", new DeviceEnabler().ShowEnabledDevices(devicesToEnable)));
+
             Console.WriteLine("Total power consumption of enabled device(s) is " + new PowerCalculator().Calculator(devicesToEnable) + "W");
-            Console.WriteLine("Devices, sorted by power consumption from highest to lowest: " + new SortDevicesByConsumption().Sorter(devicesToEnable));
+
             Console.WriteLine("Enter power consumption to find its device:");
             DeviceFinderByConsumption.Finder();
         }
@@ -41,11 +42,6 @@ namespace OOPModule
         }
     }
 
-    class HierarchyDisplay: DeviceManager
-    {
-        
-    }
-
     class PowerCalculator
     {
         public int Calculator(List<int> enabledDevices)
@@ -53,9 +49,7 @@ namespace OOPModule
             List<int> totalPower = new List<int>();
 
             foreach (int i in enabledDevices)
-            {
                 totalPower.Add(new DeviceManager().DevicePower[i]);
-            }
             
             return totalPower.Sum();
         }
@@ -68,16 +62,16 @@ namespace OOPModule
             var inputPower = int.Parse(Console.ReadLine());
             var devicePowerList = new DeviceManager().DevicePower;
 
-            foreach (int i in devicePowerList)
+            var deviceIndex = int.Parse(devicePowerList.Count().ToString());
+
+            for (int i = 0; i < deviceIndex; i++)
             {
-                if (inputPower.Equals(devicePowerList[i]))
+                if (inputPower == devicePowerList[i])
                 {
-                    var deviceIndex = i;
-                    var device = (DeviceManager.DeviceList)deviceIndex;
-                    Console.WriteLine(device.ToString());
+                    var device = (DeviceManager.DeviceList)i;
+                    Console.WriteLine("Device with suitable power consumption is " + device.ToString());
                 }
             }
-            
         }
     }
 
@@ -86,6 +80,7 @@ namespace OOPModule
         public List<string> ShowEnabledDevices(List<int> enabledDevices)
         {
             List<string> enabledDevicesNames = new List<string>();
+
             foreach (int i in enabledDevices)
             {
                 var device = (DeviceManager.DeviceList)i;
@@ -93,26 +88,6 @@ namespace OOPModule
             }
 
             return enabledDevicesNames;
-        }
-    }
-
-    class SortDevicesByConsumption
-    {
-        public List<string> Sorter(List<int> enabledDevices)
-        {
-            foreach (int i in enabledDevices)
-            {
-
-            }
-
-            Dictionary<string, int> sortedDevicesByPower = new Dictionary<string, int>();
-
-            foreach (int i in enabledDevices)
-            {
-                
-            }
-
-            return null;
         }
     }
 }
