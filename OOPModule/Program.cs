@@ -59,6 +59,7 @@ namespace OOPModule
 
     class DeviceManager
     {
+        // I had to use dictionary, however when I realized it, it was too late. Device power and device list are mapped by order
         public List<int> DevicePower = new List<int>(new int[] { 2000, 1000, 100, 50, 35 });
 
         public enum DeviceList { Kettle, Microwave, TV, Lightbulb, Radio }
