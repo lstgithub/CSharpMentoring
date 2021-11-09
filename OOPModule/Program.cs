@@ -17,7 +17,6 @@ namespace OOPModule
             for (int i = 0; i < allowedDevicesAmount; i++) // User is not able to enter more devices than listed in enumerator
             {
                 var device = "";
-
                 device = Console.ReadLine();
 
                 bool isIntParsed = int.TryParse(device, out int d);
@@ -89,29 +88,33 @@ namespace OOPModule
 
             var inputPower = "";
 
-            inputPower = Console.ReadLine();
-
-            var parsedPower = int.TryParse(inputPower, out int p);
-
-            if (parsedPower) // Check for integer, if true - continue with execution
+            for (int a = 0; a < 1; a++) // User is able to enter only one value for search
             {
-                int roundedPower = devicePowerList.Min(i => (Math.Abs(p - i), i)).i; // Here I round value to the closest power value to avoid empty search result
+                inputPower = Console.ReadLine();
 
-                var deviceIndex = int.Parse(devicePowerList.Count().ToString());
+                var parsedPower = int.TryParse(inputPower, out int p);
 
-                for (int i = 0; i < deviceIndex; i++)
+                if (parsedPower) // Check for integer, if true - continue with execution
                 {
-                    if (roundedPower == devicePowerList[i])
+                    int roundedPower = devicePowerList.Min(i => (Math.Abs(p - i), i)).i; // Here I round value to the closest power value to avoid empty search result
+
+                    var deviceIndex = int.Parse(devicePowerList.Count().ToString());
+
+                    for (int i = 0; i < deviceIndex; i++)
                     {
-                        var device = (DeviceManager.DeviceList)i;
-                        Console.WriteLine("Device with suitable power consumption is " + device.ToString());
+                        if (roundedPower == devicePowerList[i])
+                        {
+                            var device = (DeviceManager.DeviceList)i;
+                            Console.WriteLine("Device with suitable power consumption is " + device.ToString());
+                        }
                     }
                 }
-            }
 
-            if (!parsedPower) // If check for integer is failed, user will be asked to enter it again
-            {
-                Console.WriteLine("Only integers are acceptable! Try again.");
+                if (!parsedPower) // If check for integer is failed, user will be asked to enter it again
+                {
+                    Console.WriteLine("Only integers are acceptable! Try again.");
+                    a--;
+                }
             }
         }
     }
