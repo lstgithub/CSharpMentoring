@@ -61,10 +61,7 @@ namespace OOPModule
     {
         public List<int> DevicePower = new List<int>(new int[] { 2000, 1000, 100, 50, 35 });
 
-        public enum DeviceList
-        {
-            Kettle, Microwave, TV, Lightbulb, Radio
-        }
+        public enum DeviceList { Kettle, Microwave, TV, Lightbulb, Radio }
     }
 
     class PowerCalculator
