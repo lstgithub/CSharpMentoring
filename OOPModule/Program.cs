@@ -4,7 +4,8 @@ using System.Linq;
 
 namespace OOPModule
 {
-    // TASK 1, VARIANT 1
+    // TASK 1, VARIANT 1 - OOP module
+    // Language features module
     class Program
     {
         static void Main(string[] args)
