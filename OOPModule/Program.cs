@@ -72,8 +72,18 @@ namespace OOPModule
             List<int> totalPower = new List<int>();
 
             foreach (int i in enabledDevices)
-                totalPower.Add(new DeviceManager().DevicePower[i]);
-            
+            {
+                try
+                {
+                    totalPower.Add(new DeviceManager().DevicePower[i]);
+                }
+
+                catch(ArgumentOutOfRangeException)
+                {
+                    Console.WriteLine("Index was not correct! Terminating stage.");
+                }
+            }
+
             return totalPower.Sum();
         }
     }
@@ -123,10 +133,18 @@ namespace OOPModule
         {
             List<string> enabledDevicesNames = new List<string>();
 
-            foreach (int i in enabledDevices)
+            try
             {
-                var device = (DeviceManager.DeviceList)i;
-                enabledDevicesNames.Add(device.ToString());
+                foreach (int i in enabledDevices)
+                {
+                    var device = (DeviceManager.DeviceList)i;
+                    enabledDevicesNames.Add(device.ToString());
+                }
+            }
+
+            catch(ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Incorrect index! Terminating stage.");
             }
 
             return enabledDevicesNames;
