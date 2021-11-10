@@ -8,11 +8,11 @@ namespace CollectionsModule
     {
         static void Main(string[] args)
         {
-            int peopleAmount = 40;
+            int peopleAmount = 40; // Amount of items in the list
 
             List<int> people = new List<int>();
 
-            for (int i = 1; i < peopleAmount + 1; i++) // Initial array
+            for (int i = 1; i < peopleAmount + 1; i++) // Initial list creation
                 people.Add(i);
 
             Console.WriteLine("Initial array:");
@@ -27,9 +27,7 @@ namespace CollectionsModule
                 people = reducedList.ToList();
                 Console.WriteLine("Iteration " + iterationIndex);
                 foreach (var i in people)
-                {
                     Console.WriteLine(i);
-                }
             }
         }
     }
