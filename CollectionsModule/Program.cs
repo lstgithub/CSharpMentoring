@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace CollectionsModule
 {
@@ -20,17 +19,17 @@ namespace CollectionsModule
             foreach (int i in people)
                 Console.WriteLine(i);
 
-            var reducedList = from i in people.GetNth(2) select i;
-
-            Console.WriteLine("Array after first iteration:");
-            foreach (int i in reducedList)
-                Console.WriteLine(i);
-
-            //
-
+            int iterationIndex = 0;
             while (people.Count != 1)
             {
-
+                iterationIndex++;
+                var reducedList = from i in people.GetNth(2) select i;
+                people = reducedList.ToList();
+                Console.WriteLine("Iteration " + iterationIndex);
+                foreach (var i in people)
+                {
+                    Console.WriteLine(i);
+                }
             }
         }
     }
