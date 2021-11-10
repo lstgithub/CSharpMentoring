@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Enumeration;
 using System.Linq;
 
 namespace CollectionsModule
@@ -9,8 +10,8 @@ namespace CollectionsModule
         static void Main(string[] args)
         {
             new TaskOne().TaskOneHandler();
-            new TaskTwo().TaskTwoHandler();
-            new TaskThree().TaskThreeHandler();
+            
+            
         }
     }
 
@@ -53,7 +54,72 @@ namespace CollectionsModule
 
     public class TaskTwo
     {
-        public void TaskTwoHandler()
+        public Array DynamicSizeArray(int arrayLenght)
+        {
+            return new int[arrayLenght];
+        }
+
+        public Array FixedSizeArray()
+        {
+            return new int[8];
+        }
+
+        public Array ExistingArrayCopier(int[] inputArray)
+        {
+            Array outputArray = inputArray;
+            return outputArray;
+        }
+
+        public Array AddToArray(int[] inputArray, int elementToAdd)
+        {
+            int[] resultedArray = inputArray.Concat(new [] { elementToAdd }).ToArray();
+            return resultedArray;
+        }
+
+        public Array AddRangeToArray(int[] inputArray, int[] rangeToAdd)
+        {
+            int[] resultedArray = inputArray.Concat(rangeToAdd).ToArray();
+            return resultedArray;
+        }
+
+        public Array RemoveFromArray(int[] inputArray, int indexOfItemToRemove)
+        {
+            List<int> arrayToList = inputArray.ToList();
+            arrayToList.RemoveAt(indexOfItemToRemove);
+            int[] resultedArray = arrayToList.ToArray();
+            return resultedArray;
+        }
+
+        public Array InsertToArray(int[] inputArray, int element, int index)
+        {
+            List<int> arrayToList = inputArray.ToList();
+
+            ExistingArrayCopier(inputArray);
+
+            var indexToRemove = index + 1;
+            var elementCountToRemove = arrayToList.Last() - indexToRemove;
+
+            arrayToList.RemoveRange(indexToRemove, elementCountToRemove);
+            
+            return resultedArray;
+        }
+
+        public void GetArrayLength()
+        {
+            
+        }
+
+        public void GetArrayCapacity()
+        {
+
+        }
+
+        public void SpecificArrayElementHandler()
+        {
+
+        }
+
+        public void SortArray()
         {
 
         }
