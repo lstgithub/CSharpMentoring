@@ -8,6 +8,25 @@ namespace CollectionsModule
     {
         static void Main(string[] args)
         {
+            new TaskOne().TaskOneHandler();
+            new TaskTwo().TaskTwoHandler();
+            new TaskThree().TaskThreeHandler();
+        }
+    }
+
+    public static class ListNthElementSelector
+    {
+        public static IEnumerable<T> GetNth<T>(this List<T> list, int n)
+        {
+            for (int i = 0; i < list.Count; i += n)
+                yield return list[i];
+        }
+    }
+
+    public class TaskOne
+    {
+        public void TaskOneHandler()
+        {
             int peopleAmount = 40; // Amount of items in the list
 
             List<int> people = new List<int>();
@@ -32,12 +51,19 @@ namespace CollectionsModule
         }
     }
 
-    public static class ListNthElementSelector
+    public class TaskTwo
     {
-        public static IEnumerable<T> GetNth<T>(this List<T> list, int n)
+        public void TaskTwoHandler()
         {
-            for (int i = 0; i < list.Count; i += n)
-                yield return list[i];
+
+        }
+    }
+
+    public class TaskThree
+    {
+        public void TaskThreeHandler()
+        {
+
         }
     }
 }
