@@ -16,7 +16,7 @@ namespace CollectionsModule
 
     public static class ListNthElementSelector
     {
-        public static IEnumerable<T> GetNth<T>(this List<T> list, int n)
+        public static IEnumerable<T> GetNth<T>(this List<T> list, int n) // Returns every N element from the input list
         {
             for (int i = 0; i < list.Count; i += n)
                 yield return list[i];
