@@ -66,7 +66,8 @@ namespace CollectionsModule
 
         public Array ExistingArrayCopier(int[] inputArray)
         {
-            Array outputArray = inputArray;
+            var outputArray = new int[] { };
+            outputArray = inputArray;
             return outputArray;
         }
 
@@ -96,17 +97,19 @@ namespace CollectionsModule
 
             ExistingArrayCopier(inputArray);
 
-            var indexToRemove = index + 1;
-            var elementCountToRemove = arrayToList.Last() - indexToRemove;
+            var elementCountToRemove = arrayToList.Last() - index;
 
-            arrayToList.RemoveRange(indexToRemove, elementCountToRemove);
-            
-            return resultedArray;
+            arrayToList.RemoveRange(index, elementCountToRemove);
+
+
+
+            return ;
         }
 
-        public void GetArrayLength()
+        public int GetArrayLength(int[] inputArray)
         {
-            
+            int length = inputArray.ToList().Count;
+            return length;
         }
 
         public void GetArrayCapacity()
@@ -114,14 +117,15 @@ namespace CollectionsModule
 
         }
 
-        public void SpecificArrayElementHandler()
+        public void SpecificArrayElementHandler(int[] inputArray, int index)
         {
 
         }
 
-        public void SortArray()
+        public Array SortedArray(int[] inputArray)
         {
-
+            Array.Sort(inputArray);
+            return inputArray;
         }
     }
 
