@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.IO.Enumeration;
 using System.Linq;
 
 namespace CollectionsModule
@@ -9,15 +9,34 @@ namespace CollectionsModule
     {
         static void Main(string[] args)
         {
-            new TaskOne().TaskOneHandler();
+            int[] inputArray = { 1, 4, 2, 9, 0, 5, 3, 7, 6 };
+
+            try
+            {
+                new TaskTwo().SpecificArrayElementHandler(inputArray, 3);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("Error, incorrect index has been provided" + "\n");
+            }
+
+            try
+            {
+                new TaskTwo().InsertToArray(inputArray, 100, 2);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Error, incorrect index has been provided" + "\n");
+            }
             
-            
+
+
         }
     }
 
     public static class ListNthElementSelector
     {
-        public static IEnumerable<T> GetNth<T>(this List<T> list, int n) // Returns every N element from the input list
+        public static IEnumerable<T> GetNth<T>(this List<T> list, int n) // Returns every Nth element from the input list
         {
             for (int i = 0; i < list.Count; i += n)
                 yield return list[i];
@@ -90,41 +109,62 @@ namespace CollectionsModule
             int[] resultedArray = arrayToList.ToArray();
             return resultedArray;
         }
-
+        
         public Array InsertToArray(int[] inputArray, int element, int index)
         {
             List<int> arrayToList = inputArray.ToList();
 
-            ExistingArrayCopier(inputArray);
+            arrayToList.Insert(index, element);
 
-            var elementCountToRemove = arrayToList.Last() - index;
+            // Non-native solution to insert an element
+            /*
+            var count = arrayToList.Count - index;
+            
+            List<int> firstPart = arrayToList.GetRange(0, index).ToList();
+            List<int> secondPart = arrayToList.GetRange(index, count).ToList();
 
-            arrayToList.RemoveRange(index, elementCountToRemove);
+            firstPart.Add(element);
 
+            List<int> output = firstPart.Concat(secondPart).ToList();
+            */
 
+            foreach (int i in arrayToList)
+                Console.WriteLine(i);
 
-            return ;
+            Console.WriteLine("\n");
+
+            return arrayToList.ToArray();
         }
-
+        
         public int GetArrayLength(int[] inputArray)
         {
-            int length = inputArray.ToList().Count;
+            ArrayList inputArrayList = new ArrayList(inputArray);
+            var length = inputArrayList.Count;
             return length;
         }
 
-        public void GetArrayCapacity()
+        public int GetArrayCapacity(int[] inputArray)
         {
-
+            ArrayList inputArrayList = new ArrayList(inputArray);
+            var capacity = inputArrayList.Capacity;
+            return capacity;
         }
 
-        public void SpecificArrayElementHandler(int[] inputArray, int index)
+        public int SpecificArrayElementHandler(int[] inputArray, int index)
         {
-
+            var element = inputArray[index];
+            Console.WriteLine("Element is " + element + "\n");
+            return element;
+            
         }
 
-        public Array SortedArray(int[] inputArray)
+        public Array SortedArray(int[] inputArray, string method)
         {
-            Array.Sort(inputArray);
+            if (method == "asc")
+                Array.Sort(inputArray);
+            if (method == "desc")
+                Array.Reverse(inputArray);
+
             return inputArray;
         }
     }
