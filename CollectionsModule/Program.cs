@@ -9,7 +9,7 @@ namespace CollectionsModule
     {
         static void Main(string[] args)
         {
-            int[] inputArray = { 1, 4, 2, 9, 0, 5, 3, 7, 6 };
+            int[] inputArray = { 1, 4, 2, 9, 0, 5, 3, 7, 6 }; // Hardcoded array for further handling
 
             try
             {
@@ -28,8 +28,13 @@ namespace CollectionsModule
             {
                 Console.WriteLine("Error, incorrect index has been provided" + "\n");
             }
-            
 
+            TaskTwo.SortArray sortArray = TaskTwo.Asc;
+
+            var asc = sortArray(inputArray, "asc");
+
+            foreach (int i in asc)
+                Console.WriteLine(i);
 
         }
     }
@@ -130,7 +135,6 @@ namespace CollectionsModule
 
             foreach (int i in arrayToList)
                 Console.WriteLine(i);
-
             Console.WriteLine("\n");
 
             return arrayToList.ToArray();
@@ -155,16 +159,19 @@ namespace CollectionsModule
             var element = inputArray[index];
             Console.WriteLine("Element is " + element + "\n");
             return element;
-            
         }
 
-        public Array SortedArray(int[] inputArray, string method)
-        {
-            if (method == "asc")
-                Array.Sort(inputArray);
-            if (method == "desc")
-                Array.Reverse(inputArray);
+        public delegate Array SortArray(int[] inputArray, string method);
 
+        public static Array Asc(int[] inputArray, string method)
+        {
+            Array.Sort(inputArray);
+            return inputArray;
+        }
+
+        public static Array Desc(int[] inputArray, string method)
+        {
+            Array.Reverse(inputArray);
             return inputArray;
         }
     }
