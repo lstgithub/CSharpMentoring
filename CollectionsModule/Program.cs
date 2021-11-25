@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace CollectionsModule
 {
@@ -11,7 +13,7 @@ namespace CollectionsModule
         {
             int[] inputArray = { 1, 4, 2, 9, 0, 5, 3, 7, 6 }; // Hardcoded array for further handling
 
-            try
+            /*try
             {
                 new TaskTwo().SpecificArrayElementHandler(inputArray, 3);
             }
@@ -30,12 +32,11 @@ namespace CollectionsModule
             }
 
             TaskTwo.SortArray sortArray = TaskTwo.Asc;
-
-            var asc = sortArray(inputArray, "asc");
-
+            var asc = sortArray(inputArray);
             foreach (int i in asc)
                 Console.WriteLine(i);
-
+            */
+            new TaskThree().TaskThreeHandler();
         }
     }
 
@@ -78,9 +79,16 @@ namespace CollectionsModule
 
     public class TaskTwo
     {
-        public Array DynamicSizeArray(int arrayLenght)
+        public int[] DynamicSizeArray(List<int> values)
         {
-            return new int[arrayLenght];
+            List<int> dynamicList = new List<int>();
+
+            foreach (int i in values)
+                dynamicList.Add(i);
+
+            var outputArray = dynamicList.ToArray();
+
+            return outputArray;
         }
 
         public Array FixedSizeArray()
@@ -90,24 +98,23 @@ namespace CollectionsModule
 
         public Array ExistingArrayCopier(int[] inputArray)
         {
-            var outputArray = new int[] { };
-            outputArray = inputArray;
+            var outputArray = inputArray;
             return outputArray;
         }
 
-        public Array AddToArray(int[] inputArray, int elementToAdd)
+        public int[] AddToArray(int[] inputArray, int elementToAdd)
         {
             int[] resultedArray = inputArray.Concat(new [] { elementToAdd }).ToArray();
             return resultedArray;
         }
 
-        public Array AddRangeToArray(int[] inputArray, int[] rangeToAdd)
+        public int[] AddRangeToArray(int[] inputArray, int[] rangeToAdd)
         {
             int[] resultedArray = inputArray.Concat(rangeToAdd).ToArray();
             return resultedArray;
         }
 
-        public Array RemoveFromArray(int[] inputArray, int indexOfItemToRemove)
+        public int[] RemoveFromArray(int[] inputArray, int indexOfItemToRemove)
         {
             List<int> arrayToList = inputArray.ToList();
             arrayToList.RemoveAt(indexOfItemToRemove);
@@ -115,7 +122,7 @@ namespace CollectionsModule
             return resultedArray;
         }
         
-        public Array InsertToArray(int[] inputArray, int element, int index)
+        public Array InsertToArray(int[] inputArray, int index, int element)
         {
             List<int> arrayToList = inputArray.ToList();
 
@@ -161,15 +168,15 @@ namespace CollectionsModule
             return element;
         }
 
-        public delegate Array SortArray(int[] inputArray, string method);
+        public delegate int[] SortArray(int[] inputArray);
 
-        public static Array Asc(int[] inputArray, string method)
+        public static int[] Asc(int[] inputArray)
         {
             Array.Sort(inputArray);
             return inputArray;
         }
 
-        public static Array Desc(int[] inputArray, string method)
+        public static int[] Desc(int[] inputArray)
         {
             Array.Reverse(inputArray);
             return inputArray;
@@ -180,7 +187,47 @@ namespace CollectionsModule
     {
         public void TaskThreeHandler()
         {
+            List<int> skillValues = new List<int> { 8, 6, 5, 4, 9, 7, 8 }; // Last element serves to demonstrate exception handling
 
+            int[] initialArray = new TaskTwo().DynamicSizeArray(skillValues);
+            TaskTwo.SortArray sortArray = TaskTwo.Asc;
+            var ascInitialArray = sortArray(initialArray);
+
+            int arraysAmount = 0;
+
+            int size = 0;
+            if (skillValues.Count() % 2 == 0)
+                size = skillValues.Count();
+            else
+                size = skillValues.Count() - 1;
+
+            int[] fixedArray = new int[size];
+
+            if (initialArray.Length / 2 != 0)
+                fixedArray = new TaskTwo().RemoveFromArray(ascInitialArray, 0);
+            else
+                fixedArray = ascInitialArray;
+
+            arraysAmount = fixedArray.Length / 2;
+
+            int[][] playerPairs = new int[arraysAmount][];
+
+            int counter = 0;
+
+            for (int i = 0; i < arraysAmount; i++)
+            {
+                int[] pair = new int[0];
+                pair = new TaskTwo().AddToArray(pair, fixedArray[counter]);
+                pair = new TaskTwo().AddToArray(pair, fixedArray[counter + 1]);
+                counter = counter + 2;
+                playerPairs[i] = pair;
+            }
+
+            foreach (int[] x in playerPairs)
+                foreach (int i in x)
+                {
+                    Console.WriteLine(i);
+                }
         }
     }
 }
