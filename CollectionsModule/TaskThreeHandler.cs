@@ -44,11 +44,12 @@ namespace CollectionsModule
             }
 
             foreach (int[] x in playerPairs)
+            {
                 foreach (int i in x)
                 {
-                    var outputPair = i.ToString();
-                    Console.WriteLine(string.Join(", ", outputPair));
+                    Console.WriteLine("Player with skill " + i);
                 }
+            }
         }
     }
 }
