@@ -30,6 +30,8 @@ namespace CollectionsModule
                 Console.WriteLine("Iteration " + iterationIndex);
                 foreach (var i in people)
                     Console.WriteLine(i);
+
+                Console.WriteLine("\n");
             }
         }
     }

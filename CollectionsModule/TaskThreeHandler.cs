@@ -45,7 +45,10 @@ namespace CollectionsModule
 
             foreach (int[] x in playerPairs)
                 foreach (int i in x)
-                    Console.WriteLine(i + " pair");
+                {
+                    var outputPair = i.ToString();
+                    Console.WriteLine(string.Join(", ", outputPair));
+                }
         }
     }
 }
