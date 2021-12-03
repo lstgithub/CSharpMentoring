@@ -9,15 +9,15 @@ namespace FileSystemModule
     {
         public static string UserFolder = Environment.GetEnvironmentVariable("USERPROFILE");
         public static string TargetControlFolder = Path.Combine(UserFolder, "Downloads", "TextVersionControl");
-        public static List<string> filesUnderControl = new();
-        public static string currentDateTime = DateTime.Now.ToString();
-        public static string formattedDateTime = currentDateTime.Replace("/", "-").Replace(":", "-");
-        public static string versioningFile = "VersionControl";
-        public static List<string> availableStates = new();
+        public static List<string> FilesUnderControl = new();
+        public static string CurrentDateTime = DateTime.Now.ToString();
+        public static string FormattedDateTime = CurrentDateTime.Replace("/", "-").Replace(":", "-");
+        public static string VersionFile = "VersionControl";
+        public static List<string> AvailableStates = new();
 
         public void TextVersionControl()
         {
-            Console.WriteLine("Select app mode - seeking for changes (1) or reverting changes (2)");
+            Console.WriteLine("Press (1) to start observation or press (2) to start restoration");
             var mode = Console.ReadLine();
 
             if (mode == "1")
@@ -51,63 +51,49 @@ namespace FileSystemModule
 
         public void Backup()
         {
-
             foreach (string f in Directory.GetFiles(TargetControlFolder).ToList())
-                filesUnderControl.Add(f);
+                FilesUnderControl.Add(f);
 
-            var newDirectory = Directory.CreateDirectory(TargetControlFolder + "\\" + formattedDateTime);
+            var newDirectory = Directory.CreateDirectory(TargetControlFolder + "\\" + FormattedDateTime);
 
-            availableStates.Add(formattedDateTime);
+            AvailableStates.Add(FormattedDateTime);
 
-            if (!File.Exists(TargetControlFolder + "\\" + versioningFile))
-                File.Create(TargetControlFolder + "\\" + versioningFile).Dispose();
+            if (!File.Exists(TargetControlFolder + "\\" + VersionFile))
+                File.Create(TargetControlFolder + "\\" + VersionFile).Dispose();
 
-            using var fileStreamOne = new FileStream(TargetControlFolder + "\\" + versioningFile, FileMode.Append);
+            using var fileStreamOne = new FileStream(TargetControlFolder + "\\" + VersionFile, FileMode.Append);
             using var streamWriterOne = new StreamWriter(fileStreamOne);
 
-            foreach (string i in availableStates)
+            foreach (string i in AvailableStates)
                 streamWriterOne.WriteLine(i);
             streamWriterOne.Dispose();
 
-            foreach (string f in filesUnderControl)
+            foreach (string f in FilesUnderControl)
             {
                 var originalName = new FileInfo(f).Name;
-                if (originalName != versioningFile)
+                if (originalName != VersionFile)
                     File.Copy(TargetControlFolder + "\\" + originalName, newDirectory + "\\" + originalName);
             }
         }
 
         public void Restore()
         {
-            // Показать доступные состояния из availableStates
+            var stateLines = File.ReadAllLines(TargetControlFolder + "\\" + VersionFile);
+            var stateAmount = stateLines.Length;
 
-            var g = File.ReadAllLines(TargetControlFolder + "\\" + versioningFile);
+            for (int i = 0; i < stateAmount; i++)
+                Console.WriteLine(stateLines[i] + " - press " + i + " to restore");
 
-            var l = g.Length;
-
-            for (int i = 0; i < l; i++)
-            {
-                Console.WriteLine(g[i] + " - press " + i + " to restore");
-            }
-
-            // Связать их с нажатием клавиши
-
-            var t = Int32.Parse(Console.ReadLine());
-
-            // После нажатия удалять оригинальные файлы в корне
+            var counter = Int32.Parse(Console.ReadLine());
 
             foreach (string f in Directory.GetFiles(TargetControlFolder).ToList())
-            {
-                if (new FileInfo(f).Name != versioningFile)
+                if (new FileInfo(f).Name != VersionFile)
                     File.Delete(f);
-            }
 
-            var selectedState = g[t];
-            // И записывать выбранные из папки в корень
+            var selectedState = stateLines[counter];
+
             foreach (string f in Directory.GetFiles(TargetControlFolder + "\\" + selectedState).ToList())
-            {
                 File.Copy(f, TargetControlFolder + "\\" + new FileInfo(f).Name);
-            }
         }
     }
 }
