@@ -75,7 +75,7 @@ namespace FileSystemModule
             string downloadsFolder = Path.Combine(userFolder, "Downloads");
             List<string> subDirectories = Directory.GetDirectories(downloadsFolder).ToList();
             List<string> allFiles = new List<string>();
-            string outputFileName = "SearchResults.txt";
+            //string outputFileName = "SearchResults.txt";
 
             foreach (string f in Directory.GetFiles(downloadsFolder).ToList())
                 allFiles.Add(f);
@@ -163,13 +163,14 @@ namespace FileSystemModule
     {
         public static string userFolder = Environment.GetEnvironmentVariable("USERPROFILE");
         public static string targetControlFolder = Path.Combine(userFolder, "Downloads", "TextVersionControl");
+        public static List<string> filesUnderControl = new();
+
         public void TextVersionControl()
         {
             string currentDateTime = DateTime.Now.ToString();
             string formattedDateTime = currentDateTime.Replace("/", "-").Replace(":", "-");
-            string originalName = "";
             string versioningFile = "VersionControl";
-            List<string> availableStates = new List<string>();
+            List<string> availableStates = new();
 
             // Entering selected mode
             Console.WriteLine("Select app mode - seeking for changes (1) or reverting changes (2)");
@@ -179,7 +180,6 @@ namespace FileSystemModule
             {
                 Console.WriteLine("Observation mode ON, to exit press (s)");
 
-                List<string> filesUnderControl = new List<string>();
                 foreach (string f in Directory.GetFiles(targetControlFolder).ToList())
                     filesUnderControl.Add(f);
 
@@ -199,7 +199,7 @@ namespace FileSystemModule
 
                 foreach (string f in filesUnderControl)
                 {
-                    originalName = new FileInfo(f).Name;
+                    var originalName = new FileInfo(f).Name;
                     if (originalName != versioningFile)
                         File.Copy(targetControlFolder + "\\" + originalName, newDirectory + "\\" + originalName);
                 }
@@ -226,18 +226,23 @@ namespace FileSystemModule
 
                 // Связать их с нажатием клавиши
 
-                var t = Console.ReadLine();
+                var t = Int32.Parse(Console.ReadLine());
 
-                if (Int32.Parse(t) > l || Int32.Parse(t) < l)
-                    Console.WriteLine("Incorrect state selected");
+                // После нажатия удалять оригинальные файлы в корне
 
+                foreach (string f in Directory.GetFiles(targetControlFolder).ToList())
+                {
+                    if (new FileInfo(f).Name != versioningFile)
+                        File.Delete(f);
+                }
 
-                // После нажатия удалять оригинальные файлы в корне и перезаписывать их с теми из выбранной папки
-
-
+                var selectedState = g[t];
+                // И записывать выбранные из папки в корень
+                foreach (string f in Directory.GetFiles(targetControlFolder + "\\" + selectedState).ToList()) 
+                {
+                    File.Copy(f, targetControlFolder + "\\" + new FileInfo(f).Name);
+                }
             }
-
-            Console.WriteLine("");
         }
 
         public void ChangeDetector()
@@ -252,7 +257,7 @@ namespace FileSystemModule
 
         public void OnChanged(object sender, FileSystemEventArgs e)
         {
-            
+            Console.WriteLine("Change detected - " + e);
         }
     }
 }
