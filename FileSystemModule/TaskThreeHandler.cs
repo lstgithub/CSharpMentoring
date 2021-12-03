@@ -22,7 +22,7 @@ namespace FileSystemModule
 
             if (mode == "1")
             {
-                Console.WriteLine("Observation mode ON, to exit press (s)" + "\n" + "Current state has been saved");
+                Console.WriteLine("Observation mode ON, to exit press (s)");
                 ChangeDetector();
             }
 
@@ -45,7 +45,8 @@ namespace FileSystemModule
 
         public void ChangeDetectorHelper(object sender, FileSystemEventArgs e)
         {
-            Console.WriteLine("Change detected - " + e.Name);
+            string name = e.Name;
+            Console.WriteLine("Change detected - " + name);
             Backup();
         }
 
