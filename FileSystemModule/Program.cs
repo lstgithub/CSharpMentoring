@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 
 namespace FileSystemModule
 {
@@ -13,6 +14,7 @@ namespace FileSystemModule
             //new TaskOneHandler().TaskHandler();
             //new TaskTwoHandler().TaskHandler();
             new TaskThreeHandler().TextVersionControl();
+            //new TaskThreeHandler().ChangeDetector();
         }
     }
 
@@ -159,62 +161,98 @@ namespace FileSystemModule
 
     public class TaskThreeHandler
     {
+        public static string userFolder = Environment.GetEnvironmentVariable("USERPROFILE");
+        public static string targetControlFolder = Path.Combine(userFolder, "Downloads", "TextVersionControl");
         public void TextVersionControl()
         {
-            string userFolder = Environment.GetEnvironmentVariable("USERPROFILE");
-            string targetControlFolder = Path.Combine(userFolder, "Downloads", "TextVersionControl");
             string currentDateTime = DateTime.Now.ToString();
             string formattedDateTime = currentDateTime.Replace("/", "-").Replace(":", "-");
             string originalName = "";
             string versioningFile = "VersionControl";
             List<string> availableStates = new List<string>();
-            string selectedState = "";
 
             // Entering selected mode
             Console.WriteLine("Select app mode - seeking for changes (1) or reverting changes (2)");
             var mode = Console.ReadLine();
+
             if (mode == "1")
             {
                 Console.WriteLine("Observation mode ON, to exit press (s)");
-                if (Console.ReadLine() != "s")
+
+                List<string> filesUnderControl = new List<string>();
+                foreach (string f in Directory.GetFiles(targetControlFolder).ToList())
+                    filesUnderControl.Add(f);
+
+                var newDirectory = Directory.CreateDirectory(targetControlFolder + "\\" + formattedDateTime);
+
+                availableStates.Add(formattedDateTime);
+
+                if (!File.Exists(targetControlFolder + "\\" + versioningFile))
+                    File.Create(targetControlFolder + "\\" + versioningFile).Dispose();
+
+                using var fileStreamOne = new FileStream(targetControlFolder + "\\" + versioningFile, FileMode.Append);
+                using var streamWriterOne = new StreamWriter(fileStreamOne);
+
+                foreach (string i in availableStates)
+                    streamWriterOne.WriteLine(i);
+                streamWriterOne.Dispose();
+
+                foreach (string f in filesUnderControl)
                 {
-                    List<string> filesUnderControl = new List<string>();
-
-                    foreach (string f in Directory.GetFiles(targetControlFolder).ToList())
-                        filesUnderControl.Add(f);
-
-                    var newDirectory = Directory.CreateDirectory(targetControlFolder + "\\" + formattedDateTime);
-
-                    availableStates.Add(formattedDateTime);
-
-                    if (!File.Exists(targetControlFolder + "\\" + versioningFile))
-                        File.Create(targetControlFolder + "\\" + versioningFile).Dispose();
-
-                    using var fileStreamOne = new FileStream(targetControlFolder + "\\" + versioningFile, FileMode.Append);
-                    using var streamWriterOne = new StreamWriter(fileStreamOne);
-
-                    foreach (string i in availableStates)
-                        streamWriterOne.WriteLine(i);
-                    streamWriterOne.Dispose();
-
-                    foreach (string f in filesUnderControl)
-                    {
-                        originalName = new FileInfo(f).Name;
-                        if (originalName != versioningFile)
-                            File.Copy(targetControlFolder + "\\" + originalName, newDirectory + "\\" + originalName);
-                    }
-
-                    Console.WriteLine("Exit!");
+                    originalName = new FileInfo(f).Name;
+                    if (originalName != versioningFile)
+                        File.Copy(targetControlFolder + "\\" + originalName, newDirectory + "\\" + originalName);
                 }
+
+                ChangeDetector();
+
+                Console.WriteLine("Current state backed up");
             }
 
             if (mode == "2")
             {
                 Console.WriteLine("Reverse mode ON");
-                Console.WriteLine("Initial state of files has been fixed" + "\n" + "To start restoration, press (2)");
+
+                // Показать доступные состояния из availableStates
+
+                var g = File.ReadAllLines(targetControlFolder + "\\" + versioningFile);
+
+                var l = g.Length;
+
+                for (int i = 0; i < l; i++)
+                {
+                    Console.WriteLine(g[i] + " - press " + i + " to restore");
+                }
+
+                // Связать их с нажатием клавиши
+
+                var t = Console.ReadLine();
+
+                if (Int32.Parse(t) > l || Int32.Parse(t) < l)
+                    Console.WriteLine("Incorrect state selected");
+
+
+                // После нажатия удалять оригинальные файлы в корне и перезаписывать их с теми из выбранной папки
+
+
             }
 
             Console.WriteLine("");
+        }
+
+        public void ChangeDetector()
+        {
+            FileSystemWatcher watcher = new FileSystemWatcher(targetControlFolder, "*.txt");
+            watcher.NotifyFilter = NotifyFilters.LastWrite;
+            watcher.Changed += OnChanged;
+            watcher.EnableRaisingEvents = true;
+
+            Console.ReadKey();
+        }
+
+        public void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            
         }
     }
 }
