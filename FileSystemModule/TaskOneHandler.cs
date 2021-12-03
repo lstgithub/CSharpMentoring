@@ -50,6 +50,8 @@ namespace FileSystemModule
                 streamWriterTwo.WriteLine(i);
 
             streamWriterTwo.Dispose();
+
+            Console.WriteLine("All values in given text file were squared!");
         }
     }
 }

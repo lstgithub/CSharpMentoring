@@ -9,9 +9,11 @@ namespace FileSystemModule
     {
         static void Main(string[] args)
         {
-            //new TaskOneHandler().TaskHandler();
+            new TaskOneHandler().TaskHandler();
+            Console.WriteLine("\n");
             new TaskTwoHandler().TaskHandler();
-            //new TaskThreeHandler().TextVersionControl();
+            Console.WriteLine("\n");
+            new TaskThreeHandler().TextVersionControl();
         }
     }
 }
