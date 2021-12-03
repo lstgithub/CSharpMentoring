@@ -10,10 +10,17 @@ namespace FileSystemModule
         public static string UserFolder = Environment.GetEnvironmentVariable("USERPROFILE");
         public static string TargetControlFolder = Path.Combine(UserFolder, "Downloads", "TextVersionControl");
         public static List<string> FilesUnderControl = new();
-        public static string CurrentDateTime = DateTime.Now.ToString();
-        public static string FormattedDateTime = CurrentDateTime.Replace("/", "-").Replace(":", "-");
+        public static string CurrentDateTime = "";
+        public static string FormattedDateTime = "";
         public static string VersionFile = "VersionControl";
         public static List<string> AvailableStates = new();
+        public string newBackUpDirectory = "";
+
+        public string TimeDate()
+        {
+            CurrentDateTime = DateTime.Now.ToString();
+            return FormattedDateTime = CurrentDateTime.Replace("/", "-").Replace(":", "-");
+        }
 
         public void TextVersionControl()
         {
@@ -47,17 +54,17 @@ namespace FileSystemModule
         {
             string name = e.Name;
             Console.WriteLine("Change detected - " + name);
-            Backup();
+            var newTime = TimeDate();
+            newBackUpDirectory = Directory.CreateDirectory(TargetControlFolder + "\\" + newTime).ToString();
+            Backup(newTime);
         }
 
-        public void Backup()
+        public void Backup(string formattedTime)
         {
             foreach (string f in Directory.GetFiles(TargetControlFolder).ToList())
                 FilesUnderControl.Add(f);
 
-            var newDirectory = Directory.CreateDirectory(TargetControlFolder + "\\" + FormattedDateTime);
-
-            AvailableStates.Add(FormattedDateTime);
+            AvailableStates.Add(formattedTime);
 
             if (!File.Exists(TargetControlFolder + "\\" + VersionFile))
                 File.Create(TargetControlFolder + "\\" + VersionFile).Dispose();
@@ -73,8 +80,10 @@ namespace FileSystemModule
             {
                 var originalName = new FileInfo(f).Name;
                 if (originalName != VersionFile)
-                    File.Copy(TargetControlFolder + "\\" + originalName, newDirectory + "\\" + originalName);
+                    File.Copy(TargetControlFolder + "\\" + originalName, newBackUpDirectory + "\\" + originalName);
             }
+
+            FilesUnderControl.Clear();
         }
 
         public void Restore()
