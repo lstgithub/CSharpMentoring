@@ -10,8 +10,8 @@ namespace FileSystemModule
         static void Main(string[] args)
         {
             //new TaskOneHandler().TaskHandler();
-            //new TaskTwoHandler().TaskHandler();
-            new TaskThreeHandler().TextVersionControl();
+            new TaskTwoHandler().TaskHandler();
+            //new TaskThreeHandler().TextVersionControl();
         }
     }
 }

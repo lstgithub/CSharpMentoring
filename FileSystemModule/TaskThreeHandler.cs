@@ -48,18 +48,20 @@ namespace FileSystemModule
             watcher.EnableRaisingEvents = true;
 
             Console.ReadKey();
+            Console.WriteLine("Monitoring was disabled, exiting application");
         }
 
         public void ChangeDetectorHelper(object sender, FileSystemEventArgs e)
         {
             string name = e.Name;
             Console.WriteLine("Change detected - " + name);
-            var newTime = TimeDate();
+            string newTime = TimeDate();
             newBackUpDirectory = Directory.CreateDirectory(TargetControlFolder + "\\" + newTime).ToString();
+            Console.WriteLine("All files were backed up");
             Backup(newTime);
         }
 
-        public void Backup(string formattedTime)
+        public void Backup(string formattedTime) // Could be improved by making backup only for changed file
         {
             foreach (string f in Directory.GetFiles(TargetControlFolder).ToList())
                 FilesUnderControl.Add(f);
@@ -104,6 +106,8 @@ namespace FileSystemModule
 
             foreach (string f in Directory.GetFiles(TargetControlFolder + "\\" + selectedState).ToList())
                 File.Copy(f, TargetControlFolder + "\\" + new FileInfo(f).Name);
+
+            Console.WriteLine("Selected state has been restored, exiting application");
         }
     }
 }

@@ -13,7 +13,7 @@ namespace FileSystemModule
             string downloadsFolder = Path.Combine(userFolder, "Downloads");
             List<string> subDirectories = Directory.GetDirectories(downloadsFolder).ToList();
             List<string> allFiles = new List<string>();
-            //string outputFileName = "SearchResults.txt";
+            string outputFileName = Path.Combine(downloadsFolder + "\\" + "SearchResults.txt");
 
             foreach (string f in Directory.GetFiles(downloadsFolder).ToList())
                 allFiles.Add(f);
@@ -30,11 +30,25 @@ namespace FileSystemModule
             Console.WriteLine("Enter search request:");
             string request = Console.ReadLine();
             List<string> searchResults = allFiles.FindAll(r => r.Contains(request));
+
+            if (File.Exists(outputFileName))
+                File.Delete(outputFileName);
+            else
+                File.Create(outputFileName);
+
             if (searchResults.Count == 0)
                 Console.WriteLine("No matches.");
             else
                 foreach (string m in searchResults)
+                {
                     Console.WriteLine(m);
+                    using var fileStreamOne = new FileStream(outputFileName, FileMode.Append);
+                    using var streamWriterOne = new StreamWriter(fileStreamOne);
+                    streamWriterOne.WriteLine(m);
+                    streamWriterOne.Dispose();
+                }
+
+            // Biggest files
 
             Dictionary<string, long> filesWithSize = new Dictionary<string, long>();
             foreach (string x in allFiles)
@@ -43,8 +57,6 @@ namespace FileSystemModule
                 var size = new FileInfo(file).Length;
                 filesWithSize.Add(file, size);
             }
-
-            // Biggest files
 
             var sortedFiles = from z in filesWithSize orderby z.Value descending select z.Key;
 
@@ -70,28 +82,34 @@ namespace FileSystemModule
 
             // Amount of file names, starting with each alphabet letter
 
-            List<string> fileNamesOnly = new List<string>();
+            List<string> alphabet = new();
+
+            for (char c = 'A'; c < 'Z'; c++)
+                alphabet.Add(c.ToString());
+
+            List<string> fileNamesOnly = new();
 
             foreach (string t in allFiles)
-            {
-                string name = t.Replace(downloadsFolder + "\\", "");
-                fileNamesOnly.Add(name);
-            }
+                fileNamesOnly.Add(t.Replace(downloadsFolder + "\\", ""));
 
-            if (subDirectories.Count > 0)
-            {
-                List<string> subDirNames = new List<string>();
-                foreach (string dir in subDirectories)
-                    subDirNames.Add(dir.Replace(downloadsFolder + "\\", ""));
+            Dictionary<string, int> pairCharInt = new();
 
-                foreach (string subDir in subDirNames)
+            foreach (string f in fileNamesOnly)
+            {
+                var initialChar = f.Remove(1, f.Length - 1).ToUpper();
+
+                var counter = fileNamesOnly.Count(s => s.StartsWith(initialChar));
+
+                if (alphabet.Contains(initialChar))
                 {
-                    foreach (string x in fileNamesOnly)
-                    {
-                        x.Replace(subDir + "\\", "");
-                    }
+                    if (!pairCharInt.ContainsKey(initialChar))
+                        pairCharInt.Add(initialChar, counter);
                 }
+
             }
+
+            foreach (var x in pairCharInt)
+                Console.WriteLine(x.Value + " files starting with " + x.Key);
         }
     }
 }
