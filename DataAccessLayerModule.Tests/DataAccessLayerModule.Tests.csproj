@@ -98,12 +98,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayerModule\DataAccessLayerModule.csproj">
-      <Project>{36AEFDBF-2115-4DDB-9CDF-456FF42D15B8}</Project>
-      <Name>DataAccessLayerModule</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

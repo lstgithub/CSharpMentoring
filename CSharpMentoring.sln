@@ -11,12 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundamentalsCalculatorModul
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OOPModule", "OOPModule\OOPModule.csproj", "{6ECEC0F5-0322-45D2-A8BD-6D90F286771D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayerModule", "DataAccessLayerModule\DataAccessLayerModule.csproj", "{36AEFDBF-2115-4DDB-9CDF-456FF42D15B8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayerModule.Tests", "DataAccessLayerModule.Tests\DataAccessLayerModule.Tests.csproj", "{B6040F1E-46AC-44C8-A239-DDDEEE3C631E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayerLibraryModule", "DataAccessLayerLibraryModule\DataAccessLayerLibraryModule.csproj", "{0FD08CA6-9C69-47E7-8317-4977EA2A158C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,18 +33,6 @@ Global
 		{6ECEC0F5-0322-45D2-A8BD-6D90F286771D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ECEC0F5-0322-45D2-A8BD-6D90F286771D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ECEC0F5-0322-45D2-A8BD-6D90F286771D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36AEFDBF-2115-4DDB-9CDF-456FF42D15B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36AEFDBF-2115-4DDB-9CDF-456FF42D15B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36AEFDBF-2115-4DDB-9CDF-456FF42D15B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36AEFDBF-2115-4DDB-9CDF-456FF42D15B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6040F1E-46AC-44C8-A239-DDDEEE3C631E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6040F1E-46AC-44C8-A239-DDDEEE3C631E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6040F1E-46AC-44C8-A239-DDDEEE3C631E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6040F1E-46AC-44C8-A239-DDDEEE3C631E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0FD08CA6-9C69-47E7-8317-4977EA2A158C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FD08CA6-9C69-47E7-8317-4977EA2A158C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FD08CA6-9C69-47E7-8317-4977EA2A158C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FD08CA6-9C69-47E7-8317-4977EA2A158C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
