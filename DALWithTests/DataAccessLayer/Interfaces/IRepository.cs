@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace HT6
+namespace DALWithTests.DataAccessLayer.Interfaces
 {
     public interface IRepository<T> where T : class
     {

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Text;
 
-namespace HT6.Entities
+namespace DALWithTests.DataAccessLayer.Entities
 {
     public class Order
     {

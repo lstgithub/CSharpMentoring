@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Text;
-using HT6.Entities;
 
-namespace HT6
+namespace DALWithTests.DataAccessLayer
 {
     public class OrderStatistics
     {

@@ -1,12 +1,11 @@
-﻿using System.Configuration;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 
-namespace HT6
+namespace DALWithTests.DataAccessLayer
 {
     public static class Database
     {
         public static string ConnectionString =>
-            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog = Northwind; Integrated Security=True";//ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog = Northwind; Integrated Security=True";
 
         public static void OpenConnection()
         {

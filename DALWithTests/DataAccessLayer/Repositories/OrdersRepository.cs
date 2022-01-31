@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using HT6.Entities;
+using DALWithTests.DataAccessLayer.Entities;
+using DALWithTests.DataAccessLayer.Interfaces;
 
-namespace HT6.Repositories
+namespace DALWithTests.DataAccessLayer.Repositories
 {
     public class OrdersRepository : IRepository<Order>
     {

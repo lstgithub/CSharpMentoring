@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
-namespace HT6
+namespace DALWithTests.DataAccessLayer.Entities
 {
     public class Category
     {
@@ -10,11 +9,10 @@ namespace HT6
         public string Description { get; set; }
 
         private byte[] _picture;
-
         public byte[] Picture
         {
-            get { return _picture; }
-            set { _picture = value.Skip(70).ToArray(); }
+            get => _picture;
+            set => _picture = value.Skip(70).ToArray();
         } 
     }
 }

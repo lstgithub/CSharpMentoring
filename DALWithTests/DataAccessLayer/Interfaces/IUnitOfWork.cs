@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using HT6.Entities;
+using DALWithTests.DataAccessLayer.Entities;
 
-namespace HT6
+namespace DALWithTests.DataAccessLayer.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

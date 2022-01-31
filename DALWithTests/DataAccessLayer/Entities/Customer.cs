@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace HT6.Entities
+namespace DALWithTests.DataAccessLayer.Entities
 {
     public class Customer
     {
