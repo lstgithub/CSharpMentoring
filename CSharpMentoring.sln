@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectionsModule", "Collec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSystemModule", "FileSystemModule\FileSystemModule.csproj", "{FDEC8137-DE47-4596-BD4C-80F4788C5F91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayerModule", "DataAccessLayerModule\DataAccessLayerModule.csproj", "{7871132C-429A-46EE-B9BB-FDDFB1D86D6F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{FDEC8137-DE47-4596-BD4C-80F4788C5F91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDEC8137-DE47-4596-BD4C-80F4788C5F91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDEC8137-DE47-4596-BD4C-80F4788C5F91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7871132C-429A-46EE-B9BB-FDDFB1D86D6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7871132C-429A-46EE-B9BB-FDDFB1D86D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7871132C-429A-46EE-B9BB-FDDFB1D86D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7871132C-429A-46EE-B9BB-FDDFB1D86D6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
